@@ -12,6 +12,8 @@ class IntSerializer implements PrimitiveSerializer<int> {
   @override
   final String wireName = 'int';
 
+  T as<T>(dynamic it) => it is T ? it : null;
+
   @override
   Object serialize(Serializers serializers, int integer,
       {FullType specifiedType = FullType.unspecified}) {
@@ -21,6 +23,6 @@ class IntSerializer implements PrimitiveSerializer<int> {
   @override
   int deserialize(Serializers serializers, Object serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    return serialized as int;
+    return as<int>(serialized);
   }
 }

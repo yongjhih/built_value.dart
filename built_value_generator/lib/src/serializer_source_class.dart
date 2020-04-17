@@ -283,6 +283,8 @@ class _\$${name}Serializer implements StructuredSerializer<$name> {
     '''}
   }
 
+  T as<T>(dynamic it) => it is T ? it : null;
+
   @override
   $name deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
@@ -292,7 +294,10 @@ class _\$${name}Serializer implements StructuredSerializer<$name> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = as<String>(iterator.current);
+      if (key == null) {
+        continue;
+      }
       iterator.moveNext();
       final dynamic value = iterator.current;
       ${serializerSettings.serializeNulls ? 'if (value == null) continue;' : ''}'''

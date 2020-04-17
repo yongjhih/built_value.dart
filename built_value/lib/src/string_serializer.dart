@@ -18,9 +18,12 @@ class StringSerializer implements PrimitiveSerializer<String> {
     return string;
   }
 
+  T as<T>(dynamic it) => it is T ? it : null;
+
   @override
   String deserialize(Serializers serializers, Object serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    return serialized as String;
+    //return as<String>(serialized) ?? serialized?.toString();
+    return as<String>(serialized);
   }
 }
