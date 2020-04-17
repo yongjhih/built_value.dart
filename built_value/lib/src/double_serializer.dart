@@ -30,6 +30,8 @@ class DoubleSerializer implements PrimitiveSerializer<double> {
     }
   }
 
+  T as<T>(dynamic it) => it is T ? it : null;
+
   @override
   double deserialize(Serializers serializers, Object serialized,
       {FullType specifiedType = FullType.unspecified}) {
@@ -40,7 +42,7 @@ class DoubleSerializer implements PrimitiveSerializer<double> {
     } else if (serialized == infinity) {
       return double.infinity;
     } else {
-      return (serialized as num).toDouble();
+      return as<num>(serialized)?.toDouble();
     }
   }
 }
