@@ -12,11 +12,13 @@ part 'generics.g.dart';
 
 abstract class GenericValue<T>
     implements Built<GenericValue<T>, GenericValueBuilder<T>> {
-  static Serializer<GenericValue> get serializer => _$genericValueSerializer;
+  static Serializer<GenericValue<Object>> get serializer =>
+      _$genericValueSerializer;
 
   T get value;
 
-  factory GenericValue([updates(GenericValueBuilder<T> b)]) = _$GenericValue<T>;
+  factory GenericValue([Function(GenericValueBuilder<T>) updates]) =
+      _$GenericValue<T>;
   factory GenericValue.of(T value) => _$GenericValue._(value: value);
   GenericValue._();
 }
@@ -28,7 +30,7 @@ abstract class BoundGenericValue<T extends num>
 
   T get value;
 
-  factory BoundGenericValue([updates(BoundGenericValueBuilder<T> b)]) =
+  factory BoundGenericValue([Function(BoundGenericValueBuilder<T>) updates]) =
       _$BoundGenericValue<T>;
   BoundGenericValue._();
 }
@@ -36,13 +38,13 @@ abstract class BoundGenericValue<T extends num>
 abstract class CollectionGenericValue<T>
     implements
         Built<CollectionGenericValue<T>, CollectionGenericValueBuilder<T>> {
-  static Serializer<CollectionGenericValue> get serializer =>
+  static Serializer<CollectionGenericValue<Object>> get serializer =>
       _$collectionGenericValueSerializer;
 
   BuiltList<T> get values;
 
   factory CollectionGenericValue(
-          [updates(CollectionGenericValueBuilder<T> b)]) =
+          [Function(CollectionGenericValueBuilder<T>) updates]) =
       _$CollectionGenericValue<T>;
   CollectionGenericValue._();
 }
@@ -81,7 +83,7 @@ abstract class CustomBuilderGenericValue<T>
   T get value;
 
   factory CustomBuilderGenericValue(
-          [updates(CustomBuilderGenericValueBuilder<T> b)]) =
+          [Function(CustomBuilderGenericValueBuilder<T>) updates]) =
       _$CustomBuilderGenericValue<T>;
   CustomBuilderGenericValue._();
 }
@@ -115,7 +117,7 @@ abstract class GenericFunction<T>
     implements Built<GenericFunction<T>, GenericFunctionBuilder<T>> {
   Function(T) get function;
 
-  factory GenericFunction([updates(GenericFunctionBuilder<T> b)]) =
+  factory GenericFunction([Function(GenericFunctionBuilder<T>) updates]) =
       _$GenericFunction<T>;
   GenericFunction._();
 }
@@ -129,7 +131,7 @@ abstract class NonBuiltGeneric
 
   NonBuilt<int> get value;
 
-  factory NonBuiltGeneric([updates(NonBuiltGenericBuilder b)]) =
+  factory NonBuiltGeneric([Function(NonBuiltGenericBuilder) updates]) =
       _$NonBuiltGeneric;
   NonBuiltGeneric._();
 }
